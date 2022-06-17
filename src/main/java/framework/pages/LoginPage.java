@@ -1,5 +1,6 @@
 package framework.pages;
 
+import framework.components.Header;
 import framework.helpers.JavaScriptHelper;
 import framework.models.Customer;
 import io.qameta.allure.Step;
@@ -25,9 +26,7 @@ public class LoginPage extends AbstractPage{
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        wait = new WebDriverWait(driver, TIME_OUT);
         PageFactory.initElements(driver, this);
-        javaScriptHelper = new JavaScriptHelper(driver);
     }
 
     @Step("Enter Email")
@@ -47,6 +46,7 @@ public class LoginPage extends AbstractPage{
         loginButton.click();
     }
 
+    @Step("Login as customer")
     public void loginAs(Customer customer){
         enterEmail(customer.getEmail());
         enterPassword(customer.getPassword());
@@ -56,6 +56,6 @@ public class LoginPage extends AbstractPage{
     @Override
     public void openPage() {
         driver.get(BASE_PAGE + "/login");
-        waitElementUntilVisible(caption);
+        waitHelper().waitElementUntilVisible(caption);
     }
 }
