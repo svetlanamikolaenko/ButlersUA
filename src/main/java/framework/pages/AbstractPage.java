@@ -27,7 +27,7 @@ public abstract class AbstractPage {
         return new JavaScriptHelper();
     }
 
-    public abstract void openPage();
+    public abstract void openPage() throws Exception;
 
     protected abstract void waitUntilLoaded();
 }

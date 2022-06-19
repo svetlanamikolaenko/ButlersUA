@@ -5,10 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 
-public abstract class BasePage extends AbstractPage {
+public class BasePage extends AbstractPage {
     @FindBy(xpath = "//a[@class='ico-login']")
     WebElement loginIcon;
 
@@ -17,10 +16,6 @@ public abstract class BasePage extends AbstractPage {
 
     @FindBy(xpath = "//h1")
     WebElement caption;
-
-    public BasePage() {
-        PageFactory.initElements(driver, this);
-    }
 
     @Step("Verify that user is logged in")
     public boolean isUserLoggedIn() {
@@ -45,6 +40,11 @@ public abstract class BasePage extends AbstractPage {
 
     public WebElement findElementByXpath(String text) {
         return driver.findElement(By.xpath(text));
+    }
+
+    @Override
+    public void openPage() throws Exception {
+        throw new Exception("Method openPage() isn't implemented.");
     }
 
     @Override

@@ -17,6 +17,7 @@ public class LoginTest extends BaseTest{
     HomePage homePage;
     CustomerInfoPage customerInfoPage;
     Customer customer;
+    String message = "Actual page caption is: %s";
 
     @BeforeMethod
     void setup() {
@@ -30,8 +31,7 @@ public class LoginTest extends BaseTest{
     @Test(description = "After login user returns to the Home Page", priority = 1)
     void loginTest() {
         loginPage.loginAs(customer);
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(homePage.getCaption(), "Вітаємо в BUTLERS!", "Actual page caption is: " + homePage.getCaption());
+        softAssert.assertEquals(homePage.getCaption(), "Вітаємо в BUTLERS!", String.format(message, homePage.getCaption()));
         softAssert.assertTrue(homePage.isUserLoggedIn(), "User is NOT logged in");
         softAssert.assertAll();
     }
@@ -39,6 +39,6 @@ public class LoginTest extends BaseTest{
     @Test(description = "Verify that user can navigate to personal cabinet after login", priority = 2)
     void navigateToCustomerInfoTest() {
         loginPage.clickOnAccountButton();
-        Assert.assertEquals(customerInfoPage.getCaption(), "Персональний кабінет - Інформація про клієнта", "Actual page caption is: " + customerInfoPage.getCaption());
+        Assert.assertEquals(customerInfoPage.getCaption(), "Персональний кабінет - Інформація про клієнта", String.format(message, customerInfoPage.getCaption()));
     }
 }

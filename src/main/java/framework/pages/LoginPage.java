@@ -4,7 +4,6 @@ import framework.models.Customer;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
 
@@ -20,18 +19,14 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//h1")
     private WebElement caption;
 
-    public LoginPage() {
-        PageFactory.initElements(driver, this);
-    }
-
     @Step("Enter Email")
-    public void enterEmail(String email) {
+    public void setEmail(String email) {
         emailField.clear();
         emailField.sendKeys(email);
     }
 
     @Step("Enter Password")
-    public void enterPassword(String password) {
+    public void setPassword(String password) {
         passwordField.clear();
         passwordField.sendKeys(password);
     }
@@ -43,8 +38,8 @@ public class LoginPage extends BasePage {
 
     @Step("Login as customer")
     public void loginAs(Customer customer){
-        enterEmail(customer.getEmail());
-        enterPassword(customer.getPassword());
+        setEmail(customer.getEmail());
+        setPassword(customer.getPassword());
         clickOnLoginButton();
     }
 
