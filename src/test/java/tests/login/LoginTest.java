@@ -1,5 +1,6 @@
 package tests.login;
 
+import com.github.javafaker.Faker;
 import framework.enums.Customers;
 import framework.models.Customer;
 import framework.pages.CustomerInfoPage;
@@ -8,8 +9,9 @@ import framework.pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import tests.BaseTest;
+
+import java.util.Locale;
 
 public class LoginTest extends BaseTest{
 
@@ -18,6 +20,9 @@ public class LoginTest extends BaseTest{
     CustomerInfoPage customerInfoPage;
     Customer customer;
     String message = "Actual page caption is: %s";
+    Faker faker;
+    Locale locale = new Locale("uk_UA");
+    String expectedLastName = "";
 
     @BeforeMethod
     void setup() {
@@ -26,6 +31,8 @@ public class LoginTest extends BaseTest{
         loginPage.openPage();
         homePage = new HomePage();
         customerInfoPage = new CustomerInfoPage();
+        faker = new Faker(locale);
+        expectedLastName = faker.name().lastName();
     }
 
     @Test(description = "After login user returns to the Home Page", priority = 1)
@@ -40,5 +47,14 @@ public class LoginTest extends BaseTest{
     void navigateToCustomerInfoTest() {
         loginPage.clickOnAccountButton();
         Assert.assertEquals(customerInfoPage.getCaption(), "Персональний кабінет - Інформація про клієнта", String.format(message, customerInfoPage.getCaption()));
+    }
+
+    @Test(description = "Verify that user can change surname", priority = 3)
+    void changeSurnameTest(){
+        customerInfoPage.openPage();
+        customerInfoPage.changeSurname(expectedLastName);
+        customerInfoPage.saveInfo();
+
+        Assert.assertEquals(customerInfoPage.getLastName(), expectedLastName, String.format("Actual surname is: ", customerInfoPage.getLastName()));
     }
 }
