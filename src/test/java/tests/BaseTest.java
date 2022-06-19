@@ -2,8 +2,8 @@ package tests;
 
 import framework.driver.WebDriverRunner;
 import framework.helpers.JavaScriptHelper;
+import framework.helpers.WebDriverWaitHelper;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -11,14 +11,14 @@ import org.testng.annotations.BeforeClass;
 public class BaseTest {
 
     protected WebDriver driver;
-    protected WebDriverWait wait;
     protected JavaScriptHelper javaScriptHelper;
+    protected WebDriverWaitHelper webDriverWaitHelper;
 
     @BeforeClass
     public void setupDriver() {
         driver = WebDriverRunner.getWebDriver();
-        wait = new WebDriverWait(driver, 10);
-        javaScriptHelper = new JavaScriptHelper(driver);
+        webDriverWaitHelper = new WebDriverWaitHelper();
+        javaScriptHelper = new JavaScriptHelper();
     }
 
     @AfterClass
