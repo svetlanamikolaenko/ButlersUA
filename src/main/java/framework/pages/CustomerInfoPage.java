@@ -7,10 +7,10 @@ import org.openqa.selenium.support.FindBy;
 public class CustomerInfoPage extends BasePage {
 
     @FindBy(id = "LastName")
-    WebElement lastName;
+    private WebElement lastName;
 
     @FindBy(id = "save-info-button")
-    WebElement saveInfoButton;
+    private WebElement saveInfoButton;
 
     @Override
     public void openPage() {
@@ -19,10 +19,10 @@ public class CustomerInfoPage extends BasePage {
     }
 
     @Step("Change the user surname")
-    public void changeSurname(String name){
+    public void updateLastName(String surname){
         lastName.click();
         lastName.clear();
-        lastName.sendKeys(name);
+        lastName.sendKeys(surname);
     }
 
     @Step("Save changes in user personal cabinet")

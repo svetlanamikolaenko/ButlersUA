@@ -13,16 +13,17 @@ import tests.BaseTest;
 
 import java.util.Locale;
 
-public class LoginTest extends BaseTest{
+public class LoginTest extends BaseTest {
 
-    LoginPage loginPage;
-    HomePage homePage;
-    CustomerInfoPage customerInfoPage;
-    Customer customer;
-    String message = "Actual page caption is: %s";
-    Faker faker;
-    Locale locale = new Locale("uk_UA");
-    String expectedLastName = "";
+    private LoginPage loginPage;
+    private HomePage homePage;
+    private CustomerInfoPage customerInfoPage;
+    private Customer customer;
+    private Faker faker;
+    private Locale locale = new Locale("uk_UA");
+
+    private String expectedLastName = "";
+    private String message = "Actual page caption is: %s";
 
     @BeforeMethod
     void setup() {
@@ -36,7 +37,7 @@ public class LoginTest extends BaseTest{
     }
 
     @Test(description = "After login user returns to the Home Page", priority = 1)
-    void loginTest() {
+    void userCanLoginTest() {
         loginPage.loginAs(customer);
         softAssert.assertEquals(homePage.getCaption(), "Вітаємо в BUTLERS!", String.format(message, homePage.getCaption()));
         softAssert.assertTrue(homePage.isUserLoggedIn(), "User is NOT logged in");
@@ -44,15 +45,15 @@ public class LoginTest extends BaseTest{
     }
 
     @Test(description = "Verify that user can navigate to personal cabinet after login", priority = 2)
-    void navigateToCustomerInfoTest() {
+    void userCanNavigateToCustomerInfoPageTest() {
         loginPage.clickOnAccountButton();
         Assert.assertEquals(customerInfoPage.getCaption(), "Персональний кабінет - Інформація про клієнта", String.format(message, customerInfoPage.getCaption()));
     }
 
-    @Test(description = "Verify that user can change surname", priority = 3)
-    void changeSurnameTest(){
+    @Test(description = "Verify that user can update last name", priority = 2)
+    void userCanUpdateLastNameTest() {
         customerInfoPage.openPage();
-        customerInfoPage.changeSurname(expectedLastName);
+        customerInfoPage.updateLastName(expectedLastName);
         customerInfoPage.saveInfo();
 
         Assert.assertEquals(customerInfoPage.getLastName(), expectedLastName, String.format("Actual surname is: ", customerInfoPage.getLastName()));

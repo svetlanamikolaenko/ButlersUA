@@ -9,13 +9,13 @@ import org.openqa.selenium.support.FindBy;
 
 public class BasePage extends AbstractPage {
     @FindBy(xpath = "//a[@class='ico-login']")
-    WebElement loginIcon;
+    protected WebElement loginIcon;
 
     @FindBy(xpath = "//a[@class='ico-account']")
-    WebElement accountIcon;
+    protected WebElement accountIcon;
 
     @FindBy(xpath = "//h1")
-    WebElement caption;
+    protected WebElement caption;
 
     @Step("Verify that user is logged in")
     public boolean isUserLoggedIn() {

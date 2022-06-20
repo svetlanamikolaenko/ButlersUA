@@ -20,13 +20,13 @@ public class LoginPage extends BasePage {
     private WebElement caption;
 
     @Step("Enter Email")
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         emailField.clear();
         emailField.sendKeys(email);
     }
 
     @Step("Enter Password")
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         passwordField.clear();
         passwordField.sendKeys(password);
     }
