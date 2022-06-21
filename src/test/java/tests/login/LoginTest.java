@@ -37,7 +37,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(description = "After login user returns to the Home Page", priority = 1)
-    void userCanLoginTest() {
+    private void userCanLoginTest() {
         loginPage.loginAs(customer);
         softAssert.assertEquals(homePage.getCaption(), "Вітаємо в BUTLERS!", String.format(message, homePage.getCaption()));
         softAssert.assertTrue(homePage.isUserLoggedIn(), "User is NOT logged in");
@@ -45,13 +45,13 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(description = "Verify that user can navigate to personal cabinet after login", priority = 2)
-    void userCanNavigateToCustomerInfoPageTest() {
+    private void userCanNavigateToCustomerInfoPageTest() {
         loginPage.clickOnAccountButton();
         Assert.assertEquals(customerInfoPage.getCaption(), "Персональний кабінет - Інформація про клієнта", String.format(message, customerInfoPage.getCaption()));
     }
 
     @Test(description = "Verify that user can update last name", priority = 2)
-    void userCanUpdateLastNameTest() {
+    private void userCanUpdateLastNameTest() {
         customerInfoPage.openPage();
         customerInfoPage.updateLastName(expectedLastName);
         customerInfoPage.saveInfo();
